@@ -36,7 +36,26 @@ def vec(chunks):
     return vectorstore
 
 def agent():
-    pass
+    docs = load()
+    chunks = text_split(docs)
+    vectorstore = vec(chunks)
+    llm = ChatDeepSeek(
+        model="deepseek-chat",  # 或使用 deepseek-coder 等模型名
+        temperature=0.7,
+    )
+    # 4. 构建问答链
+    retriever_tool = create_retriever_tool(
+        retriever=vectorstore.as_retriever(),
+        name="search_documents",
+        description="搜索文档内容，用于回答关于文档的问题"
+    )    
+ 
+    agent = create_agent(
+        model=llm,
+        tools=[retriever_tool],
+        system_prompt="你是一个有帮助的助手，擅长从提供的小说内容中回答问题。",
+    )
+    return agent
 
 def get_device():
     """自动检测最佳 device"""
