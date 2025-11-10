@@ -19,3 +19,8 @@ dependencies = [
     "sentence-transformers>=5.1.2",
     "unstructured>=0.18.15",
 ]
+
+[dependency-groups]
+dev = [
+    "chainlit>=2.9.0",
+]

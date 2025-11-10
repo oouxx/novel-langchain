@@ -14,3 +14,6 @@ wheels/
 .DS_Store
 # data
 chroma_novel_db/
+.chainlit/
+chainlit.md
+record_manager_cache.sql
